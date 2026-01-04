@@ -7,9 +7,9 @@ namespace GAS.Models.Version
     public class VersionData
     {
         /// <summary>
-        /// 版本号数组
+        /// 加密版本号
         /// </summary>
-        [JsonProperty("version")] public List<string> Versions { get; set; }
+        [JsonProperty("version")] public string Versions { get; set; }
     }
 
     public class VersionResp : GASCommonResp<VersionData> { }

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using GAS.Common;
 using GAS.Config;
@@ -38,9 +41,18 @@ namespace GAS.Service
         /// </summary>
         /// <param name="encryptedContent">加密的版本号</param>
         /// <returns>解密后版本号</returns>
-        public string DecryptVersion(string encryptedContent)
+        public List<string> DecryptVersion(string encryptedContent)
         {
-            return GASEncryption.Decrypt(encryptedContent, GASConfigManager.AppToken);
+            var decryptContent = GASEncryption.Decrypt(encryptedContent, GASConfigManager.AppToken);
+            if (string.IsNullOrEmpty(decryptContent))
+            {
+                return new List<string>();
+            }
+            return decryptContent
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(v => v.Trim())
+                .Where(v => v.Length > 0)
+                .ToList();
         }
     }
 }

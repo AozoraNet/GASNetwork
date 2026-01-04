@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca909a88-e95f-49f6-aa85-62036dde3f52" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.GASNetwork/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.GASNetwork/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="ca909a88-e95f-49f6-aa85-62036dde3f52" name="更改" comment="chord: update .gitignore">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GASNetwork/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GASNetwork/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GASNetwork/Demo/Scripts/GASDemo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GASNetwork/Demo/Scripts/GASDemo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GASNetwork/GAS/Models/Version/VersionResp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GASNetwork/GAS/Models/Version/VersionResp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GASNetwork/GAS/Service/VersionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GASNetwork/GAS/Service/VersionService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,20 +49,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="附加到 Unity 编辑器.附加到 Unity 编辑器">
     <configuration name="启动 Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="D:\Program Files\Unity\2022.3.62f2c1\Editor\Unity.exe" />
@@ -115,7 +116,7 @@
       <option name="presentableId" value="Default" />
       <updated>1767490507964</updated>
       <workItem from="1767490512537" duration="677000" />
-      <workItem from="1767491221674" duration="163000" />
+      <workItem from="1767491221674" duration="2787000" />
     </task>
     <task id="LOCAL-00001" summary="feat: mark old async methods as obsolete and add version decryption method">
       <option name="closed" value="true" />
@@ -125,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767491137200</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="chord: update .gitignore">
+      <option name="closed" value="true" />
+      <created>1767491470484</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1767491470484</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,6 +174,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="feat: mark old async methods as obsolete and add version decryption method" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: mark old async methods as obsolete and add version decryption method" />
+    <MESSAGE value="chord: update .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="chord: update .gitignore" />
   </component>
 </project>

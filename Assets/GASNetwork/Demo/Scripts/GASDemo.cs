@@ -228,8 +228,10 @@ namespace GAS.Demo
             }
 
             var resp = await _version.GetVersionAsync(versionSequence.text);
+            var decryptVersionList = _version.DecryptVersion(resp.Data.Versions);
 
-            Log("最新版本：" + string.Join(",", resp.Data.Versions));
+            Log("加密版本号：" + resp.Data.Versions);
+            Log("解密版本号：" + string.Join(",", decryptVersionList));
         }
 
         // --------------------------------------------------------------------
