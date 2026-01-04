@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using GAS.Common;
 using GAS.Config;
@@ -39,6 +40,7 @@ namespace GAS.Service
         /// <param name="email">邮箱</param>
         /// <param name="userToken">老版本访问令牌</param>
         /// <returns>AutoLoginResp</returns>
+        [Obsolete]
         public async UniTask<AutoLoginResp> AutoLoginAsyncOld(string email, string userToken)
         {
             var sendReq = new AutoLoginReq

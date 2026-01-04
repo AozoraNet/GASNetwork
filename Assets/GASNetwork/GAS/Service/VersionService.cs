@@ -32,5 +32,15 @@ namespace GAS.Service
             GASResponseChecker.EnsureSuccess(resp);
             return resp;
         }
+        
+        /// <summary>
+        /// 解密版本号
+        /// </summary>
+        /// <param name="encryptedContent">加密的版本号</param>
+        /// <returns>解密后版本号</returns>
+        public string DecryptVersion(string encryptedContent)
+        {
+            return GASEncryption.Decrypt(encryptedContent, GASConfigManager.AppToken);
+        }
     }
 }
