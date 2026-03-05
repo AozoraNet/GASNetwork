@@ -1,5 +1,21 @@
 <linker>
+    <assembly fullname="Newtonsoft.Json" preserve="all"/>
+    
     <assembly fullname="Assembly-CSharp">
+        <namespace fullname="GAS.Common" preserve="all"/>
+        <namespace fullname="GAS.Config" preserve="all"/>
+        <namespace fullname="GAS.Network" preserve="all"/>
+        <namespace fullname="GAS.Service" preserve="all"/>
+        
         <namespace fullname="GAS.Models" preserve="all"/>
+        <namespace fullname="GAS.Models.OAuth" preserve="all"/>
+        <namespace fullname="GAS.Models.Archive" preserve="all"/>
+        <namespace fullname="GAS.Models.AutoLogin" preserve="all"/>
+        <namespace fullname="GAS.Models.Config" preserve="all"/>
+        <namespace fullname="GAS.Models.Profile" preserve="all"/>
+        <namespace fullname="GAS.Models.Redeem" preserve="all"/>
+        <namespace fullname="GAS.Models.Version" preserve="all"/>
+        
+        <type fullname="GAS.Common.GASCommonResp`1" preserve="all"/>
     </assembly>
 </linker>
