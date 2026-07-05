@@ -27,6 +27,9 @@ namespace GAS.Models.Profile
         
         /// <summary>
         /// 用户组别信息，逗号分隔
+        /// 0: 白名单用户（内部测试人员）
+        /// 1: 黑名单用户
+        /// 其他数值: 自定义用户组
         /// </summary>
         [JsonProperty("user_group")] public string UserGroup { get; set; }
     }

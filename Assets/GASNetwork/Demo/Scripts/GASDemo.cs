@@ -24,6 +24,8 @@ namespace GAS.Demo
         public Button btnVersion;
         public Button btnRedeem;
         public Button btnLogout;
+        public Button btnBanUser;
+        public Button btnCheckMaintenance;
         
         public Text log;
 
@@ -41,6 +43,8 @@ namespace GAS.Demo
         private ArchiveService _archive = new ArchiveService();
         private VersionService _version = new VersionService();
         private RedeemService _redeem = new RedeemService();
+        private BanService _ban = new BanService();
+        private MaintenanceService _maintenance = new MaintenanceService();
 
         // Runtime tokens
         private string _authToken;
@@ -69,6 +73,8 @@ namespace GAS.Demo
             btnVersion.onClick.AddListener(() => RunVersion());
             btnRedeem.onClick.AddListener(() => RunRedeem());
             btnLogout.onClick.AddListener(() => RunLogout());
+            btnBanUser.onClick.AddListener(() => RunBanUser());
+            btnCheckMaintenance.onClick.AddListener(() => RunCheckMaintenance());
             
             btnSwitchToZH.onClick.AddListener(() => SetLanguage(GASLang.zh));
             btnSwitchToEN.onClick.AddListener(() => SetLanguage(GASLang.en));
@@ -179,7 +185,27 @@ namespace GAS.Demo
             }
 
             var resp = await _profile.GetProfileAsync(_email, _accessToken);
-            Log("Profile = " + resp.Data.Nickname);
+            
+            Log("【用户信息】");
+            Log($"UID: {resp.Data.Uid}");
+            Log($"昵称: {resp.Data.Nickname}");
+            Log($"头像: {resp.Data.Avatar}");
+            Log($"位置: {resp.Data.Location}");
+            
+            // 显示用户组信息
+            var groupDescriptions = _profile.GetUserGroupDescriptionsString(resp.Data.UserGroup);
+            Log($"用户组: {groupDescriptions}");
+            
+            // 检查特殊身份
+            if (_profile.IsWhitelistUser(resp.Data.UserGroup))
+            {
+                Log("✓ 该用户是内部测试人员（白名单）", 2);
+            }
+            
+            if (_profile.IsBlacklistUser(resp.Data.UserGroup))
+            {
+                Log("⚠ 该用户已被加入黑名单", 1);
+            }
         }
 
         // --------------------------------------------------------------------
@@ -267,6 +293,68 @@ namespace GAS.Demo
             btnLogout.interactable = false;
             btnOAuth.interactable = true;
             Log("已注销登录状态：" + resp.Code);
+        }
+        
+        // --------------------------------------------------------------------
+        // 8. Ban 应用层面封禁用户
+        // --------------------------------------------------------------------
+        private async void RunBanUser()
+        {
+            if (_email == null)
+            {
+                Log("请先完成 OAuth");
+                return;
+            }
+            
+            try
+            {
+                // 示例1：临时封禁用户24小时
+                var resp = await _ban.BanUserTemporarilyAsync(_email, 24, "使用作弊工具");
+                Log("用户已被临时封禁24小时：" + resp.Msg);
+                
+                // 示例2：永久封禁用户
+                // var resp = await _ban.BanUserPermanentlyAsync(_email, "严重违规");
+                // Log("用户已被永久封禁：" + resp.Msg);
+            }
+            catch (GASException ex)
+            {
+                Log("封禁失败：" + ex.Message, 1);
+            }
+        }
+        
+        // --------------------------------------------------------------------
+        // 9. Maintenance 获取应用维护信息
+        // --------------------------------------------------------------------
+        private async void RunCheckMaintenance()
+        {
+            try
+            {
+                var resp = await _maintenance.GetMaintenanceInfoAsync();
+                
+                if (resp.Code == 200 && resp.Data != null)
+                {
+                    // 有维护事件
+                    string content = _maintenance.DecryptMaintenanceContent(resp.Data.ContentEncrypted);
+                    string endTime = string.IsNullOrEmpty(resp.Data.EndTimeEncrypted) 
+                        ? "无" 
+                        : _maintenance.DecryptMaintenanceEndTime(resp.Data.EndTimeEncrypted);
+                    
+                    Log($"【维护信息】\n内容：{content}\n结束时间：{endTime}\n允许登录：{resp.Data.AllowLogin}");
+                }
+                else if (resp.Code == 201)
+                {
+                    // 无维护事件
+                    Log("✓ 应用状态正常，无维护事件");
+                }
+                else
+                {
+                    Log($"查询失败：{resp.Msg}", 1);
+                }
+            }
+            catch (GASException ex)
+            {
+                Log("查询维护信息失败：" + ex.Message, 1);
+            }
         }
     }
 }

@@ -51,6 +51,18 @@ namespace GAS.Network
             /// 配置获取
             /// </summary>
             public static readonly string Config = BaseUrl + "/config.php";
+            
+            /// <summary>
+            /// Ban.
+            /// 应用层面封禁用户
+            /// </summary>
+            public static readonly string Ban = BaseUrl + "/ban.php";
+            
+            /// <summary>
+            /// Maintenance.
+            /// 应用维护信息获取
+            /// </summary>
+            public static readonly string Maintenance = BaseUrl + "/maint.php";
         }
     }
 }
