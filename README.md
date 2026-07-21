@@ -1,65 +1,65 @@
 # GAS Network
 
-GASNetwork 用于与 DLRS GAS (Game Account System) API 进行交互，提供用户认证、云存档、版本管理等功能。
+[中文](README_ZH.md) | [English](README.md)
 
-## 目录
+GASNetwork is a Unity package for interacting with the DLRS GAS (Game Account System) API. It provides user authentication, cloud saves, version management, and related features.
 
-- [环境要求](#环境要求)
-- [快速开始](#快速开始)
-- [配置说明](#配置说明)
-- [错误处理](#错误处理)
-- [鸣谢](#鸣谢)
+## Contents
 
-## 环境要求
+- [Requirements](#requirements)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Error Handling](#error-handling)
+- [Acknowledgements](#acknowledgements)
 
-### 必需依赖
+## Requirements
 
-- **UniTask**: 用于异步操作（[GitHub](https://github.com/Cysharp/UniTask)）
-- **Newtonsoft.Json**: JSON 序列化库 Unity 专用版（[Github](https://github.com/applejag/Newtonsoft.Json-for-Unity) | [Unity](http://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0/manual/index.html)）
+### Required Dependencies
 
-### 安装 UniTask
+- **UniTask**: For asynchronous operations ([GitHub](https://github.com/Cysharp/UniTask))
+- **Newtonsoft.Json**: The Unity-specific JSON serialization package ([GitHub](https://github.com/applejag/Newtonsoft.Json-for-Unity) | [Unity](http://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0/manual/index.html))
 
-如果项目中尚未安装 UniTask，可以通过以下方式安装：
+### Install UniTask
 
-1. 使用 Unity Package Manager
-2. 或从 [UniTask GitHub](https://github.com/Cysharp/UniTask) 下载
+If UniTask is not already installed in the project, install it using one of the following methods:
 
-### 安装 Newtonsoft.Json
+1. Unity Package Manager
+2. Download it from [UniTask GitHub](https://github.com/Cysharp/UniTask)
 
-⚠️ 需要安装 Unity 专用版以支持 `IL2CPP` 运行
+### Install Newtonsoft.Json
 
-步骤：  
-1. 使用 Unity Package Manager
-2. Add package by name... -> 输入包名`com.unity.nuget.newtonsoft-json`，版本`3.2.2`
+The Unity-specific version is required for `IL2CPP` support.
 
+1. Open Unity Package Manager.
+2. Select **Add package by name...**, enter `com.unity.nuget.newtonsoft-json`, and use version `3.2.2`.
 
-## 快速开始
+## Quick Start
 
-### 1. 创建配置文件（已包含在Resources，无需重复创建）
+### 1. Create a configuration asset
 
-在 Unity 编辑器中：
+`GASConfig` is already included under `Resources`, so you do not need to create it again. To create a new one in the Unity Editor:
 
-1. 右键点击 `Assets/GASNetwork/Resources/` 目录
-2. 选择 `Create > GAS > Config`
-3. 创建 `GASConfig` 资源文件
-4. 在 Inspector 中设置：
-   - **App Id**: 你的应用 ID
-   - **App Token**: 你的应用令牌
+1. Right-click `Assets/GASNetwork/Resources/`.
+2. Select `Create > GAS > Config`.
+3. Create a `GASConfig` asset.
+4. Set the following values in the Inspector:
+   - **App Id**: Your application ID.
+   - **App Token**: Your application token.
 
-### 2. 设置接口语言（可选）
+### 2. Set the API language (optional)
 
 ```csharp
 using GAS.Config;
 using GAS.Enum;
 
-// 设置为中文
+// Use Chinese.
 GASConfigManager.Lang = GASLang.zh;
 
-// 设置为英文
+// Use English.
 GASConfigManager.Lang = GASLang.en;
 ```
 
-### 3. 基本使用示例
+### 3. Basic usage example
 
 ```csharp
 using Cysharp.Threading.Tasks;
@@ -73,94 +73,87 @@ public class MyGameManager : MonoBehaviour
     
     async void Start()
     {
-        // 获取 appId 和 appToken
+        // Read the app ID and app token.
         int appId = GASConfigManager.AppId;
         string appToken = GASConfigManager.AppToken;
         
-        // 执行 OAuth 登录流程...
+        // Start the OAuth login flow...
     }
 }
 ```
 
-## 配置说明
+## Configuration
 
-### GASConfig 配置
+### GASConfig
 
-配置文件位于 `Resources/GASConfig.asset`，包含以下字段：
+The configuration asset is located at `Resources/GASConfig.asset` and contains the following fields:
 
-- **App Id** (`int`): 应用 ID，从 GAS 平台获取
-- **App Token** (`string`): 应用令牌，从 GAS 平台获取
+- **App Id** (`int`): The application ID obtained from the GAS platform.
+- **App Token** (`string`): The application token obtained from the GAS platform.
 
-### 语言配置
+### Language
 
-Api 接口支持两种语言：
+The API supports two languages:
 
-- `GASLang.zh` - 中文（默认）
-- `GASLang.en` - 英文
+- `GASLang.zh` - Chinese (default)
+- `GASLang.en` - English
 
-可以通过 `GASConfigManager.Lang` 动态切换：
+You can switch language at runtime with `GASConfigManager.Lang`:
 
 ```csharp
-GASConfigManager.Lang = GASLang.en; // 切换到英文
+GASConfigManager.Lang = GASLang.en; // Switch to English.
 ```
 
-## 错误处理
+## Error Handling
 
-### 异常类型
+### Exception Types
 
-系统定义了三种异常类型：
+The package defines three exception types:
 
-1. **GASException** - 通用异常
+1. **GASException** - General exception.
    ```csharp
    catch (GASException ex)
    {
-       Debug.LogError($"错误代码: {ex.Code}, 消息: {ex.Message}");
+       Debug.LogError($"Error code: {ex.Code}, message: {ex.Message}");
    }
    ```
 
-2. **GASNetworkException** - 网络异常
+2. **GASNetworkException** - Network exception.
    ```csharp
    catch (GASNetworkException ex)
    {
-       Debug.LogError($"网络错误: {ex.Code}, {ex.Message}");
-       Debug.LogError($"原始响应: {ex.RawText}");
+       Debug.LogError($"Network error: {ex.Code}, {ex.Message}");
+       Debug.LogError($"Raw response: {ex.RawText}");
    }
    ```
 
-3. **GASParseException** - JSON 解析异常
+3. **GASParseException** - JSON parsing exception.
    ```csharp
    catch (GASParseException ex)
    {
-       Debug.LogError($"解析错误: {ex.Message}");
+       Debug.LogError($"Parse error: {ex.Message}");
    }
    ```
 
-### 响应检查
+### Response Validation
 
-所有服务方法都会自动检查响应状态码，如果 `code != 200`，会抛出 `GASException`。
+All service methods automatically validate the response status code. If `code != 200`, a `GASException` is thrown.
 
-### 日志记录
+### Logging
 
-系统会自动记录所有 HTTP 请求和响应，包括：
-- 请求方法、URL、请求体
-- 响应状态码、响应体、耗时
+The package automatically logs all HTTP requests and responses, including:
 
-日志通过 `GASResponseLogger` 输出到 Unity Console。
+- Request method, URL, and body.
+- Response status code, body, and duration.
 
-## 鸣谢
+Logs are written to the Unity Console through `GASResponseLogger`.
 
-幻影の刄  
-DL RS 同人群官方网站  
-DL RS 同人社区全体开发者
+## Acknowledgements
 
-## 开源协议
+- 幻影の刄
+- DL RS 同人群官方网站
+- All developers in the DL RS fan community
 
-This package is licensed under The MIT License (MIT)
+## License
 
----
-
-此文档使用 Cursor 辅助生成  
-
-Author: BluesDawn  
-Date: 2025-11-29  
-Edit: 2026-01-08
+This package is licensed under the MIT License.

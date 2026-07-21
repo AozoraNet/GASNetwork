@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using GAS.Common;
 using GAS.Config;
+using GAS.Enum;
 using GAS.Models.Profile;
 using GAS.Network;
 
@@ -43,7 +44,7 @@ namespace GAS.Service
         /// <param name="email">邮箱</param>
         /// <param name="userToken">老版本用户令牌</param>
         /// <returns>ProfileResp</returns>
-        [Obsolete("此方法已弃用，请使用 GetProfileAsync 方法")]
+        [Obsolete("This method is obsolete. Use GetProfileAsync instead.")]
         public async UniTask<ProfileResp> GetProfileAsyncOld(string email, string userToken)
         {
             var sendReq = new ProfileReq
@@ -130,6 +131,16 @@ namespace GAS.Service
         /// <returns>组别描述</returns>
         public string GetUserGroupDescription(int groupId)
         {
+            if (GASConfigManager.Lang == GASLang.en)
+            {
+                return groupId switch
+                {
+                    0 => "Whitelisted User (Internal Tester)",
+                    1 => "Blacklisted User",
+                    _ => $"Custom User Group {groupId}"
+                };
+            }
+
             return groupId switch
             {
                 0 => "白名单用户（内部测试人员）",
@@ -158,7 +169,12 @@ namespace GAS.Service
         public string GetUserGroupDescriptionsString(string userGroups)
         {
             var descriptions = GetUserGroupDescriptions(userGroups);
-            return descriptions.Count > 0 ? string.Join("\n", descriptions) : "无特殊分组";
+            if (descriptions.Count > 0)
+            {
+                return string.Join("\n", descriptions);
+            }
+
+            return GASConfigManager.Lang == GASLang.en ? "No Special Group" : "无特殊分组";
         }
     }
 }
