@@ -1,10 +1,11 @@
+using GAS.Config;
 using UnityEngine;
 
 namespace GAS.Handler
 {
     public static class GASBrowserHandler
     {
-        private const string oauthUrl = "https://gas.chinadlrs.com/oauth?appid={0}&token={1}";
+        private const string oauthUrl = "https://gas.chinadlrs.com/oauth?appid={0}&token={1}&lang={2}";
         
         /// <summary>
         /// 打开浏览器进行授权登录
@@ -13,7 +14,7 @@ namespace GAS.Handler
         /// <param name="authToken">authToken</param>
         public static void OpenAuthBrowser(int appId, string authToken)
         {
-            string url = string.Format(oauthUrl, appId, authToken);
+            string url = string.Format(oauthUrl, appId, authToken, GASConfigManager.LangString);
             OpenURL(url);
         }
         
